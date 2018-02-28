@@ -3,7 +3,6 @@ var nullArray=[];
 var positions=[]; 
 var elements=[1,2,3,4,5,6,7,8,9];
 var str1, str2, col1, col2, hx, hy, mnx, mny=0;  
-var trashMatrix=[[[],[],[],[],[],[],[],[],[]],[[],[],[],[],[],[],[],[],[]],[[],[],[],[],[],[],[],[],[]],[[],[],[],[],[],[],[],[],[]],[[],[],[],[],[],[],[],[],[]],[[],[],[],[],[],[],[],[],[]],[[],[],[],[],[],[],[],[],[]],[[],[],[],[],[],[],[],[],[]],[[],[],[],[],[],[],[],[],[]]];
 function check() {    
     for (var x=0; x<matrix.length; x++) {
         nullArray=[];
@@ -69,8 +68,6 @@ function check() {
                 }
                 nullArray.push(elements);
                 positions.push(y);
-                trashMatrix[x][y]=[];
-                trashMatrix[x].splice(y, 1, elements)
             }
         }
                                                                                                                                                                                                                      
@@ -118,10 +115,6 @@ function checker(){
         trans();
         check();
         trans();
-        check();
-        trans();
-        check();
-        trans();
         newZeros=0;
         for (var x = 0; x < matrix.length; x++) {
             for (var y = 0; y < matrix[x].length; y++) {
@@ -134,21 +127,18 @@ function checker(){
 }
 function trans() {
     var hMatrix=0;
-    var hTrashMatrix=[];
     for (var i= 0; i<matrix.length;i++) {
         for (var j=i; j<matrix[i].length; j++) {
             hMatrix=matrix[i][j];
-            hTrashMatrix=[];
-            hTrashMatrix.splice(0,1,trashMatrix[i][j]);
             matrix[i][j]=matrix[j][i];
-            trashMatrix[i].splice(j,1,trashMatrix[j][i]);
+            
             matrix[j][i]=hMatrix;
-            trashMatrix[j].splice(i,1,hTrashMatrix[0]);
         }
     }
    
 }   
 checker();
+
 
 var rightMatrix=[[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]];
 
@@ -158,58 +148,7 @@ for (var key=0; key<matrix.length; key++) {
     }
 }
 
-for (var i=0; i<matrix.length; i++) {
-    for (var j=0; j<matrix[i].length; j++) {
-        if (matrix[i][j]!==0) {
-            trashMatrix[i][j]=[];
-        }
-        if (trashMatrix[i][j].length>0) {
-            //print(trashMatrix[i][j]);
-        }
-    }
-}
-
-function trashChecker(){
-    for (var c=0; c<trashMatrix.length; c++) {
-        for (var d =0; d<trashMatrix[c].length; d++) {
-            for (var e=0; e<trashMatrix[c][d].length; e++) {
-                matrix[c][d]=trashMatrix[c][d][e];
-                checker()
-                var zeros1=0;
-                for (var x1=0; x1<matrix.length; x1++) {
-                    for (var y1=0; y1<matrix[x1].length; y1++) {
-                        if (matrix[x1][y1]==0) {
-                            zeros1++;
-                        }
-                    }
-                }
-                if (zeros1==0) {
-                    return(matrix);
-                } else {
-                    matrix=[[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]];
-                    for (var key1=0; key1<rightMatrix.length; key1++) {
-                        for (var key3=0; key3<rightMatrix[key1].length; key3++) {
-                            matrix[key1][key3]=rightMatrix[key1][key3];
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-var zeros1=0;
-for (var x1=0; x1<matrix.length; x1++) {
-    for (var y1=0; y1<matrix[x1].length; y1++) {
-        if (matrix[x1][y1]==0) {
-            zeros1++;
-        }
-    }
-}
-if (zeros1==0) {
-    return(matrix);
-}
-matrix=trashChecker();
 
 
-return(matrix);
+   return(matrix);
 }
